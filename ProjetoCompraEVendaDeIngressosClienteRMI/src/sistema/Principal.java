@@ -19,7 +19,7 @@ public class Principal {
 		
 		try {
 			IServicoListarEventos sla = (IServicoListarEventos)Naming.lookup(urlservico);
-			String msg = sla.retornaMensagem("Iniciando ServiÃ§o");
+			String msg = sla.retornaMensagem("Iniciando Serviço");
 			System.out.println(msg);
 			ArrayList<Cliente> listaDeEventos = sla.retornaListaDeEventosDisponiveis(201823, "Show de Ivete Sangalo");
 			for (Cliente cliente : listaDeEventos) {
