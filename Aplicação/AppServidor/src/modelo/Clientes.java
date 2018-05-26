@@ -2,24 +2,14 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Cliente implements Serializable {
+public class Clientes implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	int idCliente;
-	String nome;
+	String nomeCliente;
 	String cpf;
-	
-	public Cliente() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Cliente(String nome, String cpf) {
-		// TODO Auto-generated constructor stub
-		this.nome = nome;
-		this.cpf = cpf;
-	}
 
 	public int getIdCliente() {
 		return idCliente;
@@ -29,12 +19,12 @@ public class Cliente implements Serializable {
 		this.idCliente = idCliente;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeCliente() {
+		return nomeCliente;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeCliente(String nome) {
+		this.nomeCliente = nome;
 	}
 
 	public String getCpf() {
