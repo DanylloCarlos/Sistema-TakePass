@@ -16,6 +16,7 @@ public class ClienteDAO {
 	private ResultSet rs;
 	private String sql;
 	private ArrayList<Ingressos> ingressos;
+	ArrayList<Clientes> listaDeClientes;
 	
 	public ClienteDAO() throws ClassNotFoundException, SQLException {
 		
@@ -24,14 +25,14 @@ public class ClienteDAO {
 	
 	public void cadastrarCliente(String nome, String cpf) throws SQLException {
 		
-		String sql = "Insert int Cliente(nomeCliente, cpf) values (?, ?)";
+		String sql = "Insert into Clientes (nomeCliente, cpf) values (?, ?)";
 		
 		pstm = c.prepareStatement(sql);
 		
 		pstm.setString(1, nome);
 		pstm.setString(2, cpf);
 		
-		pstm.executeQuery();
+		pstm.executeUpdate();
 		
 		pstm.close();
 		c.close();
@@ -69,6 +70,33 @@ public class ClienteDAO {
 		
 		return cli;
 	}
+	
+	public ArrayList<Clientes> listarClientes(){
+		listaDeClientes = new ArrayList<Clientes>();
+		sql = "Select * from Clientes";
+		
+		try {
+			pstm = c.prepareStatement(sql);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()){
+				Clientes clientes = new Clientes();
+				clientes.setIdCliente(rs.getInt("idCliente"));
+				clientes.setNomeCliente(rs.getString("nomeCliente"));
+				clientes.setCpf(rs.getString("cpf"));
+				listaDeClientes.add(clientes);
+			}
+			pstm.close();
+			c.close();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+		return listaDeClientes;
+		
+	}
+
 	
 	
 	
