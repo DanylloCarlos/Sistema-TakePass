@@ -10,15 +10,15 @@ public class Clientes implements Serializable {
 	int idCliente;
 	String nomeCliente;
 	String cpf;
-
+	
+	public void setIdCliente(int novoIdCliente) {
+		this.idCliente = novoIdCliente;
+	}
+	
 	public int getIdCliente() {
 		return idCliente;
 	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
+	
 	public String getNomeCliente() {
 		return nomeCliente;
 	}

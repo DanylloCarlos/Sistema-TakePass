@@ -13,6 +13,10 @@ public class Eventos implements Serializable{
 	private int Clientes_idCliente;
 	private int Ingressos_idIngresso;
 	
+	public void setIdEvento(int novoIdEvento) {
+		this.idEvento = novoIdEvento;
+	}
+	
 	public int getIdEvento() {
 		return this.idEvento;
 	}

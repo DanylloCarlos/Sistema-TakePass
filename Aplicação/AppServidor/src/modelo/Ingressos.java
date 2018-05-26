@@ -11,6 +11,10 @@ public class Ingressos implements Serializable{
 	private String nomeEvento;
 	private int Clientes_idCliente;
 	
+	public void setIdIngresso(int novoIdIngresso) {
+		this.idIngresso = novoIdIngresso;
+	}
+	
 	public int getIdIngresso() {
 		return this.idIngresso;
 	}
