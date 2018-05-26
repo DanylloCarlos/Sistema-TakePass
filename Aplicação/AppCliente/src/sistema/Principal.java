@@ -19,10 +19,10 @@ public class Principal {
 		
 		try {
 			IServicoClientesPorEvento cpe = (IServicoClientesPorEvento)Naming.lookup(urlservico);
-			String msg = cpe.retornaMensagem("Iniciando Serviço");
+			String msg = cpe.retornaMensagem("Iniciando Serviï¿½o");
 			System.out.println(msg);
 			ArrayList<Clientes> clientesPorEvento = cpe.clientesPorEvento(11, "Evento beneficente");
-			for (Clientes cliente : listaDeEventos) {
+			for (Clientes cliente : clientesPorEvento) {
 				System.out.println("Nome:" + cliente.getNomeCliente());
 				System.out.println("CPF:" + cliente.getCpf());
 				System.out.println("************************");
