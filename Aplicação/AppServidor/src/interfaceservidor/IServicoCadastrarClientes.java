@@ -8,5 +8,6 @@ import modelo.Clientes;
 public interface IServicoCadastrarClientes extends Remote{
 
 	public Clientes novoCliente(String nome, String fone) throws RemoteException;
+	public String retornaMensagem(String msg) throws RemoteException;
 
 }

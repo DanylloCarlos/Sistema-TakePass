@@ -6,7 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import interfaceservidor.IServicoListarEventos;
+import interfaceservidor.IServicoClientesPorEvento;
 import modelo.Clientes;
 
 public class Principal {
@@ -18,10 +18,10 @@ public class Principal {
 		urlservico = "//localhost/listareventos";
 		
 		try {
-			IServicoListarEventos sla = (IServicoListarEventos)Naming.lookup(urlservico);
-			String msg = sla.retornaMensagem("Iniciando Serviço");
+			IServicoClientesPorEvento cpe = (IServicoClientesPorEvento)Naming.lookup(urlservico);
+			String msg = cpe.retornaMensagem("Iniciando Serviço");
 			System.out.println(msg);
-			ArrayList<Clientes> listaDeEventos = sla.retornaListaDeEventosDisponiveis(201823, "Show de Ivete Sangalo");
+			ArrayList<Clientes> clientesPorEvento = cpe.clientesPorEvento(11, "Evento beneficente");
 			for (Clientes cliente : listaDeEventos) {
 				System.out.println("Nome:" + cliente.getNomeCliente());
 				System.out.println("CPF:" + cliente.getCpf());

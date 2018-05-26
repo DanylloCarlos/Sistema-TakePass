@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import modelo.Clientes;
 
-public interface IServicoListarEventos extends Remote {
+public interface IServicoClientesPorEvento extends Remote {
 
-	public ArrayList<Clientes> retornaListaDeEventosDisponiveis(int codigoDoEvento, String descricaoEvento) throws RemoteException;
+	public ArrayList<Clientes> clientesPorEvento(int codigoDoEvento, String descricaoEvento) throws RemoteException;
 	public String retornaMensagem(String msg) throws RemoteException;
 	
 }

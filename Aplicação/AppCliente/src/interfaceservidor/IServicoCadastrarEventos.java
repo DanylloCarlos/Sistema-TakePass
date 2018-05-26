@@ -8,5 +8,6 @@ import modelo.Eventos;
 public interface IServicoCadastrarEventos extends Remote{
 
 	public Eventos novoEvento(String nomeDoEvento, int idCliente, int idIngresso) throws RemoteException;
+	public String retornaMensagem(String msg) throws RemoteException;
 
 }
