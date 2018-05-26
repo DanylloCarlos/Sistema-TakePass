@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `bdEventos`.`Evento` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `bdEventos`.`Evento` (
-  `idEvento` INT NOT NULL,
+  `idEvento` INT NOT NULL AUTO_INCREMENT,
   `nomeEvento` VARCHAR(45) NULL,
   `Clientes_idCliente` INT NOT NULL,
   `Ingressos_idIngresso` INT NOT NULL,
