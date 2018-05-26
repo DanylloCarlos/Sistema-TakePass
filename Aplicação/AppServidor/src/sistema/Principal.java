@@ -58,10 +58,10 @@ public class Principal {
 		
 		teclado = new Scanner(System.in);
 		
-		System.out.println("Nome do Cliente:");
+		System.out.println("Nome do Cliente: ");
 		String nomeCliente = teclado.nextLine();
 		
-		System.out.println("Cpf do cliente:");
+		System.out.println("Cpf do cliente: ");
 		String cpf = teclado.nextLine();
 		
 		Clientes clientes = new Clientes();
@@ -81,9 +81,9 @@ public class Principal {
 		listaClientesSaida = clienteDAO.listarClientes();
 		
 		for (Clientes clientes : listaClientesSaida) {
-			System.out.println("IdAluno:" + clientes.getIdCliente());
-			System.out.println("Matricula:" + clientes.getNomeCliente());
-			System.out.println("Nome:" + clientes.getCpf());
+			System.out.println("IdAluno: " + clientes.getIdCliente());
+			System.out.println("Matricula: " + clientes.getNomeCliente());
+			System.out.println("Nome: " + clientes.getCpf());
 			System.out.println("******************************");
 		}
 		
