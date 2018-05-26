@@ -39,8 +39,7 @@ DROP TABLE IF EXISTS `bdEventos`.`Ingressos` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `bdEventos`.`Ingressos` (
   `idIngresso` INT NOT NULL AUTO_INCREMENT,
-  `codEvento` VARCHAR(50) NULL,
-  `nomeEvento` VARCHAR(45) NULL,
+  `qtdDisp` INT NULL,
   PRIMARY KEY (`idIngresso`))
 ENGINE = InnoDB;
 
