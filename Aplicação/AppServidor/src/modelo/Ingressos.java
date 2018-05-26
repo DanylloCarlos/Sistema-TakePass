@@ -6,22 +6,32 @@ public class Ingressos implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private int idIngresso;
-	private String nomeEvento;
-	private int Clientes_idCliente;
+	private int quantidadeIngressos;
+	private String descricao;
+	
+	public int getIdIngresso() {
+		return idIngresso;
+	}
 	
 	public void setIdIngresso(int novoIdIngresso) {
 		this.idIngresso = novoIdIngresso;
 	}
-	
-	public int getIdIngresso() {
-		return this.idIngresso;
+
+	public int getQuantidadeIngressos() {
+		return quantidadeIngressos;
+	}
+
+	public void setQuantidadeIngressos(int quantidadeIngressos) {
+		this.quantidadeIngressos = quantidadeIngressos;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
-	public String getNomeEvento() {
-		return this.nomeEvento;
-	}
 	
-	public int getClientes_idCliente() {
-		return this.Clientes_idCliente;
-	}
 }

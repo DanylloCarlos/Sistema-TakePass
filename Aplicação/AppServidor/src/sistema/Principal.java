@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import dao.ClienteDAO;
+import dao.IngressoDAO;
 import modelo.Clientes;
+import modelo.Ingressos;
 
 public class Principal {
 	
@@ -21,9 +23,9 @@ public class Principal {
 			System.out.println("Escolha uma opção:");
 			System.out.println("1 - Incluir um Cliente");
 			System.out.println("2 - Listar Clientes");
-			/*System.out.println("3 - Incluir uma Situação Academica a um Aluno");
-			System.out.println("4 - Listar Alunos por Situacao");
-			System.out.println("5 - Inicializar o Servidor");*/
+			System.out.println("3 - Cadastro de Ingressos: ");
+			System.out.println("4 - Listar Ingressos: ");
+			/*System.out.println("5 - Inicializar o Servidor");*/
 			System.out.println("6 - Sair da Aplicacao");
 			System.out.println("Digite uma opção:");
 			opcao = teclado.nextInt();
@@ -34,13 +36,13 @@ public class Principal {
 			case 2:
 				listarClientes();
 				break;
-			/*ase 3:
-				incluirsituacao();
+			case 3:
+				cadastrarIngressos();
 				break;
 			case 4:
-				listaralunosporsituacao();
+				listarIngressos();
 				break;
-			case 5:
+			/*case 5:
 				iniciarServidor();
 				break;*/
 			case 6:
@@ -89,6 +91,37 @@ public class Principal {
 		
 	}
 	
+	private static void cadastrarIngressos() throws ClassNotFoundException, SQLException {
+		teclado = new Scanner(System.in);
+		
+		System.out.println("Quantidade de Ingressos: ");
+		int quantidadeIngressos = teclado.nextInt();
+		
+		System.out.println("Descrição do Ingresso: ");
+		String descricaoDosIngressos = teclado.nextLine();
+	
+		Ingressos ingressos = new Ingressos();
+		
+		IngressoDAO ingressoDAO = new IngressoDAO();
+		ingressoDAO.cadastrarIngresso(quantidadeIngressos, descricaoDosIngressos);
+		
+		System.out.println("Ingresso cadastrado com sucesso");
+	}
+	
+	private static void listarIngressos() throws ClassNotFoundException, SQLException {
+		ArrayList<Ingressos> listaIngressosSaida;
+		IngressoDAO ingressoDAO = new IngressoDAO();
+		
+		listaIngressosSaida = ingressoDAO.listarIngressos();
+		
+		for (Ingressos ingressos : listaIngressosSaida) {
+			System.out.println("IdIngresso: " + ingressos.getIdIngresso());
+			System.out.println("Quantidade: " + ingressos.getQuantidadeIngressos());
+			System.out.println("Descrição: " + ingressos.getDescricao());
+			System.out.println("******************************");
+		}
+		
+	}
 
 	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
