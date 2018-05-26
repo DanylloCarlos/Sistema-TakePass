@@ -40,6 +40,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `bdEventos`.`Ingressos` (
   `idIngresso` INT NOT NULL AUTO_INCREMENT,
   `qtdDisp` INT NULL,
+  `descricao` VARCHAR(100) NULL,
   PRIMARY KEY (`idIngresso`))
 ENGINE = InnoDB;
 

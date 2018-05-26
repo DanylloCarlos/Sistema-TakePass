@@ -1,8 +1,5 @@
 package interfaceservidor;
 
-import java.rmi.Remote;
+public interface IServicoCadastrarClientes {
 
-public interface IServicoCadastrarClientes extends Remote {
-
-	public 
 }
