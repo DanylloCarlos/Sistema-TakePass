@@ -1,8 +1,12 @@
 package interfaceservidor;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-public interface IServicoCadastrarClientes extends Remote {
+import modelo.Clientes;
 
-	public 
+public interface IServicoCadastrarClientes extends Remote{
+
+	public Clientes novoCliente(String nome, String fone) throws RemoteException;
+
 }
