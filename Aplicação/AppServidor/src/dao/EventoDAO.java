@@ -20,10 +20,6 @@ public class EventoDAO {
 		c = ConexaoBD.novaConexao();
 	}
 	
-	/**
-	 * Listar todos os clientes inscritos em evento
-	 * @return ingressos
-	 */
 	public ArrayList clientesPorEvento () {
 		sql = "Select  from Clientes where ";
 		

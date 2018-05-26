@@ -47,12 +47,12 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `bdEventos`.`Evento`
+-- Table `bdEventos`.`Eventos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bdEventos`.`Evento` ;
+DROP TABLE IF EXISTS `bdEventos`.`Eventos` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `bdEventos`.`Evento` (
+CREATE TABLE IF NOT EXISTS `bdEventos`.`Eventos` (
   `idEvento` INT NOT NULL AUTO_INCREMENT,
   `nomeEvento` VARCHAR(45) NULL,
   `Clientes_idCliente` INT NOT NULL,
@@ -71,10 +71,10 @@ CREATE TABLE IF NOT EXISTS `bdEventos`.`Evento` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Evento_Clientes_idx` ON `bdEventos`.`Evento` (`Clientes_idCliente` ASC);
+CREATE INDEX `fk_Evento_Clientes_idx` ON `bdEventos`.`Eventos` (`Clientes_idCliente` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Evento_Ingressos1_idx` ON `bdEventos`.`Evento` (`Ingressos_idIngresso` ASC);
+CREATE INDEX `fk_Evento_Ingressos1_idx` ON `bdEventos`.`Eventos` (`Ingressos_idIngresso` ASC);
 
 SHOW WARNINGS;
 

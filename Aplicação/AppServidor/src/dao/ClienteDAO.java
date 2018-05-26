@@ -22,17 +22,15 @@ public class ClienteDAO {
 		c = ConexaoBD.novaConexao();
 	}
 	
-	/**
-	 * @param nome
-	 * @param CPF
-	 * @throws SQLException
-	 */
-	
-	public void cadastrarCliente(String nome, String CPF) throws SQLException {
+	public void cadastrarCliente(String nome, String cpf) throws SQLException {
 		
-		String sql = "Insert int Cliente(nomeCliente, cpf) values ("+nome+", "+CPF+")";
+		String sql = "Insert int Cliente(nomeCliente, cpf) values (?, ?)";
 		
 		pstm = c.prepareStatement(sql);
+		
+		pstm.setString(1, nome);
+		pstm.setString(2, cpf);
+		
 		pstm.executeQuery();
 		
 		pstm.close();
@@ -40,15 +38,9 @@ public class ClienteDAO {
 		
 	}
 	
-
-	/**
-	 * @param cli
-	 * @throws SQLException
-	 */
-	
 	public void removerCliente(Clientes cli) throws SQLException{
 	
-		String sql = "Delete from Clientes where idCliente = ?";
+		String sql = "Delete from Clientes c where c.idCliente = ?";
 		
 		pstm = c.prepareStatement(sql);
 		pstm.setInt(1, cli.getIdCliente());
@@ -59,19 +51,13 @@ public class ClienteDAO {
 		
 	}
 	
-	/**
-	 * @param CPF
-	 * @return cli
-	 * @throws SQLException
-	 */
-	
-	public Clientes buscarCliente(String CPF) throws SQLException{
+	public Clientes buscarCliente(String cpf) throws SQLException{
 		Clientes cli = new Clientes();
 		
-		String sql = "Select * from Clientes where cpf= ?";
+		String sql = "Select * from Clientes c where c.cpf= ?";
 		
 		pstm = c.prepareStatement(sql);
-		pstm.setString(1, CPF);
+		pstm.setString(1, cpf);
 		rs = pstm.getResultSet();
 		
 		while(rs.next()) {

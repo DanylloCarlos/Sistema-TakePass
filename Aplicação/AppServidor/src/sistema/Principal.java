@@ -21,7 +21,7 @@ public class Principal {
 			IServicoListarEventos sla = (IServicoListarEventos)Naming.lookup(urlservico);
 			String msg = sla.retornaMensagem("Iniciando Serviço");
 			System.out.println(msg);
-			ArrayList<Clientes> listaDeEventos = sla.retornaListaDeEventosDisponiveis(201823, "Show de Ivete Sangalo");
+		//	ArrayList<Clientes> listaDeEventos = sla.retornaListaDeEventosDisponiveis(201823, "Show de Ivete Sangalo");
 			for (Clientes cliente : listaDeEventos) {
 				System.out.println("Nome:" + cliente.getNomeCliente());
 				System.out.println("CPF:" + cliente.getCpf());

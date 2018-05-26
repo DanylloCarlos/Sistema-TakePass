@@ -3,9 +3,7 @@ package modelo;
 import java.io.Serializable;
 
 public class Ingressos implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int idIngresso;
 	private String nomeEvento;

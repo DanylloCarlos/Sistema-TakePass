@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Eventos implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int idEvento;
 	private String nomeEvento;
