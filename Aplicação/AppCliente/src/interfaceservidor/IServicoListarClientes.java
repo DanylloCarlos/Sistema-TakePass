@@ -3,11 +3,9 @@ package interfaceservidor;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import modelo.Eventos;
+public interface IServicoListarClientes extends Remote {
 
-public interface IServicoListarEventos extends Remote{
-
-	public Eventos listarEventos() throws RemoteException;
+	public void listarClientes() throws RemoteException;
 	public String retornaMensagem(String msg) throws RemoteException;
 	
 }

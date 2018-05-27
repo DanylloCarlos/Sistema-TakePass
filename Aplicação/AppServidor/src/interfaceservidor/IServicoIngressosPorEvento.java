@@ -11,4 +11,5 @@ public interface IServicoIngressosPorEvento extends Remote {
 
 	public ArrayList<Object> ingressosPorEvento(Eventos e, Ingressos i) throws RemoteException;
 	public String retornaMensagem(String msg) throws RemoteException;
+
 }

@@ -1,9 +1,7 @@
-/util/
-/dao/
-<<<<<<< HEAD
-/modelo/
 /sistema/
-/interfaceservidor/
 /servicormi/
-=======
->>>>>>> 3dbc819e6d707361b96e2b93995e96a5f5ba76ec
+/servicosrmi/
+/interfaceservidor/
+/util/
+/modelo/
+/dao/

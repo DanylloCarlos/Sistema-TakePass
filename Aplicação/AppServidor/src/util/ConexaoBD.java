@@ -11,12 +11,12 @@ public class ConexaoBD {
 	private static String driver;
 	
 	public static Connection novaConexao() throws ClassNotFoundException, SQLException {
-		url = "jdbc:mysql://localhost/bdEventos";
+		url = "jdbc:mysql://localhost/bdeventos";
 		driver = "com.mysql.jdbc.Driver";
 		c = null;
 		
 		Class.forName(driver);
-		c = DriverManager.getConnection(url, "root", "123");
+		c = DriverManager.getConnection(url, "root", "");
 		
 		return c;
 	}

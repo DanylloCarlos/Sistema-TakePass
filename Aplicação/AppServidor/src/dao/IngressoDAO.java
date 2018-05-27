@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import modelo.Eventos;
 import modelo.Ingressos;
 import util.ConexaoBD;
 
@@ -15,7 +16,7 @@ public class IngressoDAO {
 	private PreparedStatement pstm;
 	private ResultSet rs;
 	private Connection c;
-	private ArrayList<Ingressos> listaDeIngressos;
+	private ArrayList<String> listaDeIngressosPorEvento;
 	
 	
 	public IngressoDAO() throws SQLException, ClassNotFoundException{
@@ -57,31 +58,39 @@ public class IngressoDAO {
 		
 	}
 	
-	public ArrayList<Ingressos> listarIngressos(){
+	public ArrayList<String> listarIngressosPorEvento(){
 		
-		listaDeIngressos = new ArrayList<Ingressos>();
-		sql = "Select * from Ingressos";
+		listaDeIngressosPorEvento = new ArrayList<>();
+		sql = "Select nomeEvento, qtdDisp from Ingressos i, Eventos e where i.idIngresso = e.Ingressos_idIngresso";
 		
 		try {
 			pstm = c.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			
 			while(rs.next()){
-				Ingressos ingressos = new Ingressos();
-				ingressos.setIdIngresso(rs.getInt("idIngresso"));
-				ingressos.setQuantidadeIngressos(rs.getInt("qtdDisp"));
-				ingressos.setDescricao(rs.getString("descricao"));
+
+				Ingressos ingresso = new Ingressos();
+				Eventos evento = new Eventos();
+				String info = new String();
 				
-				listaDeIngressos.add(ingressos);
+				ingresso.setQuantidadeIngressos(rs.getInt("qtdDisp"));
+				
+				evento.setNomeEvento(rs.getString("nomeEvento"));
+				
+				info = "Evento: "+evento.getNomeEvento()+" || Qtd de Ingressos: "+ingresso.getQuantidadeIngressos();
+				
+				listaDeIngressosPorEvento.add(info);
+				
 			}
+			
 			pstm.close();
 			c.close();
-		
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}			
-		return listaDeIngressos;
+		}
 		
+		return listaDeIngressosPorEvento;
 	}
 }

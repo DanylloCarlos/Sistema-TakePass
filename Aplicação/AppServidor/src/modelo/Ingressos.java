@@ -10,7 +10,7 @@ public class Ingressos implements Serializable{
 	private String descricao;
 	
 	public int getIdIngresso() {
-		return idIngresso;
+		return this.idIngresso;
 	}
 	
 	public void setIdIngresso(int novoIdIngresso) {
@@ -18,7 +18,7 @@ public class Ingressos implements Serializable{
 	}
 
 	public int getQuantidadeIngressos() {
-		return quantidadeIngressos;
+		return this.quantidadeIngressos;
 	}
 
 	public void setQuantidadeIngressos(int quantidadeIngressos) {
@@ -26,7 +26,7 @@ public class Ingressos implements Serializable{
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	public void setDescricao(String descricao) {
