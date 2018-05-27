@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import interfaceservidor.IServicoClientesPorEvento;
+import interfaceservidor.IServicoListarEventos;
 import modelo.Clientes;
 
 public class Principal {
@@ -18,10 +19,10 @@ public class Principal {
 		urlservico = "//localhost/listareventos";
 		
 		try {
-			IServicoClientesPorEvento cpe = (IServicoClientesPorEvento)Naming.lookup(urlservico);
-			String msg = cpe.retornaMensagem("Iniciando Servi�o");
+			IServicoListarEventos cpe = (IServicoListarEventos)Naming.lookup(urlservico);
+			String msg = cpe.retornaMensagem("Iniciando Serviço");
 			System.out.println(msg);
-			ArrayList<Clientes> clientesPorEvento = cpe.clientesPorEvento(11, "Evento beneficente");
+			ArrayList<Clientes> clientesPorEvento = cpe.retornaListaDeEventosDisponiveis("show de safadão");
 			for (Clientes cliente : clientesPorEvento) {
 				System.out.println("Nome:" + cliente.getNomeCliente());
 				System.out.println("CPF:" + cliente.getCpf());

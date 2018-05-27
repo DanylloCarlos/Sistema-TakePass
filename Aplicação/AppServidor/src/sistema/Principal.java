@@ -1,13 +1,21 @@
 package sistema;
 
+import java.net.MalformedURLException;
+import java.nio.channels.ClosedByInterruptException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import dao.ClienteDAO;
+import dao.EventoDAO;
 import dao.IngressoDAO;
 import modelo.Clientes;
+import modelo.Eventos;
 import modelo.Ingressos;
+import servicormi.ServicoListarEventos;
 
 public class Principal {
 	
@@ -25,8 +33,10 @@ public class Principal {
 			System.out.println("2 - Listar Clientes");
 			System.out.println("3 - Cadastro de Ingressos: ");
 			System.out.println("4 - Listar Ingressos: ");
-			/*System.out.println("5 - Inicializar o Servidor");*/
-			System.out.println("6 - Sair da Aplicacao");
+			System.out.println("5 - Cadastro de Eventos: ");
+			System.out.println("6 - Listar Eventos: ");
+			System.out.println("7 - Inicializar o Servidor");
+			System.out.println("8 - Sair da Aplicacao");
 			System.out.println("Digite uma opção:");
 			opcao = teclado.nextInt();
 			switch (opcao) {
@@ -42,18 +52,43 @@ public class Principal {
 			case 4:
 				listarIngressos();
 				break;
-			/*case 5:
-				iniciarServidor();
-				break;*/
+			case 5:
+				cadastrarEventos();
+				break;
 			case 6:
+				listarEventos();	
+				break;
+			case 7:
+				iniciarServidor();
+				break;
+			case 8:
 				System.out.println("Saindo....");
 				break;	
 			default:
 				break;
 			}
 			
-		}while (opcao != 6);
+		}while (opcao != 7);
 
+	}
+
+	private static void listarEventos() throws ClassNotFoundException, SQLException {
+		/// TODO Auto-generated method stub
+		ArrayList<Eventos> listaEventosSaida;
+		EventoDAO eventoDAO = new EventoDAO();
+		
+/*		listaEventosSaida = eventoDAO.buscarTodosOsEvento();*/
+		
+		listaEventosSaida = eventoDAO.buscarTodosOsEvento();
+		
+		for (Eventos evento : listaEventosSaida) {
+			System.out.println("IdEvento: " + evento.getIdEvento());
+			System.out.println("Nome do Evento: " + evento.getNomeEvento());
+			System.out.println("IdCliente: " + evento.getClientes_idCliente());
+			System.out.println("IdIngresso: " + evento.getIngressos_idIngresso());
+			System.out.println("******************************");
+		}
+		
 	}
 
 	private static void incluirCliente() throws ClassNotFoundException, SQLException{
@@ -122,28 +157,41 @@ public class Principal {
 		}
 		
 	}
+	
+	
+	private static void cadastrarEventos() throws ClassNotFoundException, SQLException {
+		teclado = new Scanner(System.in);
+		
+		System.out.println("Descrição do Evento: ");
+		String nomeDoEvento = teclado.nextLine();
+	
+		System.out.println("Informe o id do cliente: ");
+		int idCliente = teclado.nextInt();
+		
+		System.out.println("Informe o id do ingresso: ");
+		int idIngresso = teclado.nextInt();
+		
+		EventoDAO eventoDAO = new EventoDAO();
+		
+		eventoDAO.cadastrarEvento(nomeDoEvento, idCliente, idIngresso);
+		
+		System.out.println("Evento cadastrado com sucesso");
+	}
+	
 
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String urlservico = "";
-		
-		urlservico = "//localhost/listareventos";
-		
+	private static void iniciarServidor() {
 		try {
-			IServicoListarEventos sla = (IServicoListarEventos)Naming.lookup(urlservico);
-			String msg = sla.retornaMensagem("Iniciando Servi�o");
-			System.out.println(msg);
-		//	ArrayList<Clientes> listaDeEventos = sla.retornaListaDeEventosDisponiveis(201823, "Show de Ivete Sangalo");
-			for (Clientes cliente : listaDeEventos) {
-				System.out.println("Nome:" + cliente.getNomeCliente());
-				System.out.println("CPF:" + cliente.getCpf());
-				System.out.println("************************");
-			}
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			LocateRegistry.createRegistry(1099);
+			ServicoListarEventos sla = new ServicoListarEventos();
+			Naming.rebind("//localhost/listareventos", sla);
+			System.out.println("Inicializando o Servidor....");
+		
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-*/
 }
