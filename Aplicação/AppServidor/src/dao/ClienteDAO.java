@@ -23,14 +23,15 @@ public class ClienteDAO {
 		c = ConexaoBD.novaConexao();
 	}
 	
-	public void cadastrarCliente(String nome, String cpf) throws SQLException {
+	public void cadastrarCliente(String nome, String cpf, int idEvento) throws SQLException {
 		
-		String sql = "Insert into Clientes (nomeCliente, cpf) values (?, ?)";
+		String sql = "Insert into Clientes (nomeCliente, cpf, Eventos_idEvento) values (?, ?, ?)";
 		
 		pstm = c.prepareStatement(sql);
 		
 		pstm.setString(1, nome);
 		pstm.setString(2, cpf);
+		pstm.setInt(3, idEvento);
 		
 		pstm.executeUpdate();
 		

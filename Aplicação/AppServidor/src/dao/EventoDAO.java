@@ -15,9 +15,8 @@ public class EventoDAO {
 	private Connection c;
 	private PreparedStatement pstm;
 	private ResultSet rs;
-	private String sql, sql1;
-	private ArrayList<String> listaDeClientesPorEvento, listaDeIngressosPorEvento;
-	private int contReg = 0;
+	private String sql;
+	private ArrayList<Clientes> listaDeClientesPorEvento;
 	
 	public EventoDAO() throws ClassNotFoundException,SQLException{
 		c = ConexaoBD.novaConexao();
@@ -25,13 +24,12 @@ public class EventoDAO {
 	
 	public void cadastrarEvento(String nomeDoEvento, int qtdIngressos, int idCliente) throws SQLException{
 		
-		sql = "Insert into Eventos(nomeEvento, qtdIngressos, Clientes_idCliente)"
-				+ " values (?, ?, ?)";
+		sql = "Insert into Eventos(nomeEvento, qtdIngressos)"
+				+ " values (?, ?)";
 		
 		pstm = c.prepareStatement(sql);
 		pstm.setString(1, nomeDoEvento);
 		pstm.setInt(2, qtdIngressos);
-		pstm.setInt(3, idCliente);
 		
 		pstm.executeUpdate();
 		
@@ -76,35 +74,28 @@ public class EventoDAO {
 		return e;
 	}
 	
-	public ArrayList<String> listarClientesPorEvento() throws SQLException{
+	public ArrayList<Clientes> listarClientesPorEvento(int codigoDeAcesso) throws SQLException{
+		listaDeClientesPorEvento = new ArrayList<>();
 		
-		sql = "Select nomeCliente, nomeEvento from Clientes c, Eventos e where c.IdCliente = e.Clientes_idCliente";
+		sql = "Select nomeCliente, cpf from Clientes c, Eventos e "
+				+ "Where c.Eventos_idEvento = e.idEvento and e.idEvento = ?";
 		
-		pstm = c.prepareStatement(sql);
-		pstm.executeQuery();
-		rs = pstm.getResultSet();
-			
-			listaDeClientesPorEvento = new ArrayList<>();
-			
 			try {
 				pstm = c.prepareStatement(sql);
+				pstm.setInt(1, codigoDeAcesso);
 				rs = pstm.executeQuery();
 				
 				while(rs.next()){
 
 					Clientes cli = new Clientes();
-					Eventos evento = new Eventos();
-					String info = new String();
 					
 					cli.setNomeCliente(rs.getString("nomeCliente"));
+					cli.setCpf(rs.getString("cpf"));
 					
-					evento.setNomeEvento(rs.getString("nomeEvento"));
+					listaDeClientesPorEvento.add(cli);
+
 					
-					info = "Cliente: "+cli.getNomeCliente()+" || Evento: "+evento.getNomeEvento();
-					
-					listaDeClientesPorEvento.add(info);
-					
-					
+				  	return listaDeClientesPorEvento;
 				}
 				
 				pstm.close();
@@ -115,42 +106,6 @@ public class EventoDAO {
 				e.printStackTrace();
 			}
 			
-			return listaDeClientesPorEvento;
-		}
-	
-	public ArrayList<String> listarIngressosPorEvento(){
-		
-		listaDeIngressosPorEvento = new ArrayList<>();
-		sql = "Select nomeEvento, qtdDisp from Ingressos i, Eventos e where i.idIngresso = e.Ingressos_idIngresso";
-		
-		try {
-			pstm = c.prepareStatement(sql);
-			rs = pstm.executeQuery();
-			
-			while(rs.next()){
-
-				Ingressos ingresso = new Ingressos();
-				Eventos evento = new Eventos();
-				String info = new String();
-				
-				ingresso.setQuantidadeIngressos(rs.getInt("qtdDisp"));
-				
-				evento.setNomeEvento(rs.getString("nomeEvento"));
-				
-				info = "Evento: "+evento.getNomeEvento()+" || Qtd de Ingressos: "+ingresso.getQuantidadeIngressos();
-				
-				listaDeIngressosPorEvento.add(info);
-				
-			}
-			
-			pstm.close();
-			c.close();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return listaDeIngressosPorEvento;
-	}
+			return null;
+		}	
 }

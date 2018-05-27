@@ -4,7 +4,9 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import dao.ClienteDAO;
 import dao.EventoDAO;
 import interfaceservidor.IServicoListarClientesPorEvento;
 import modelo.Clientes;
@@ -30,34 +32,42 @@ implements IServicoListarClientesPorEvento {
 
 
 	@Override
-	public ArrayList<Clientes> listarClientesPorEvento() throws RemoteException, SQLException {
+	public ArrayList<Clientes> listarClientesPorEvento(int codigoDeAcesso)  throws RemoteException, SQLException {
 	
-		EventoDAO eventoDAO = null;
-		ArrayList<Eventos> listaDeClientesPorEvento;
-	
-	
+		System.out.println();
+		
+		ArrayList<Clientes> listaClientesPorEvento;
+		
 		try {
-			eventoDAO = new EventoDAO();
-			listaDeClientesPorEvento = eventoDAO.listarClientesPorEvento();
+		EventoDAO eventoDAO = new EventoDAO();
+		
+		listaClientesPorEvento = eventoDAO.listarClientesPorEvento(codigoDeAcesso);
+		
+		if(listaClientesPorEvento == null || listaClientesPorEvento.isEmpty()) {
+			System.out.println("Nenhum dado cadastrado no banco ou falha no acesso aos dados");
+			System.out.println();
+		
+		}else {
 			
-			if(listaDeClientesPorEvento.isEmpty()) {
-				System.out.println("Dados não recuperados com sucesso");
-			}else {
-				int contador=0;
-				while(!listaDeClientesPorEvento.isEmpty()) {
-					listaDeClientesPorEvento.get(contador);
-					contador++;
-				}
-				
+			System.out.println("|/|/| Dados carregados com sucesso! Carregando lista... /|/|/|/|/\n");
+			System.out.println();
+
+			for (Clientes clientes : listaClientesPorEvento) {
+				System.out.println("Id do Cliente: " + clientes.getIdCliente());
+				System.out.println("Nome: " + clientes.getNomeCliente());
+				System.out.println("CPF: " + clientes.getCpf());
+				System.out.println("******************************\n\n");
+		
 			}
-			
-			return listaDeClientesPorEvento;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}
+		
+		return listaClientesPorEvento;
+	
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-				return null;
-	}
-}	
-
+		
+		return null;
+		
+	}	
+}

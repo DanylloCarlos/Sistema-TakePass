@@ -9,7 +9,7 @@ import modelo.Clientes;
 
 public interface IServicoListarClientesPorEvento extends Remote {
 
-	public ArrayList<Clientes> listarClientesPorEvento() throws RemoteException, SQLException;
+	public ArrayList<Clientes> listarClientesPorEvento(int codigoDeAcesso) throws RemoteException, SQLException;
 	public String retornaMensagem(String msg) throws RemoteException;
 	
 }
