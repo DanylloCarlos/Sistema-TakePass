@@ -45,6 +45,9 @@ public class IngressoDAO {
 		pstm.setInt(1, i.getIdIngresso());
 		pstm.execute();
 		
+		pstm.close();
+		c.close();
+		
 	}
 	
 	public void buscarIngresso(int idIngresso) throws SQLException{
@@ -56,41 +59,8 @@ public class IngressoDAO {
 		pstm.setInt(1, idIngresso);
 		pstm.execute();
 		
-	}
-	
-	public ArrayList<String> listarIngressosPorEvento(){
+		pstm.close();
+		c.close();
 		
-		listaDeIngressosPorEvento = new ArrayList<>();
-		sql = "Select nomeEvento, qtdDisp from Ingressos i, Eventos e where i.idIngresso = e.Ingressos_idIngresso";
-		
-		try {
-			pstm = c.prepareStatement(sql);
-			rs = pstm.executeQuery();
-			
-			while(rs.next()){
-
-				Ingressos ingresso = new Ingressos();
-				Eventos evento = new Eventos();
-				String info = new String();
-				
-				ingresso.setQuantidadeIngressos(rs.getInt("qtdDisp"));
-				
-				evento.setNomeEvento(rs.getString("nomeEvento"));
-				
-				info = "Evento: "+evento.getNomeEvento()+" || Qtd de Ingressos: "+ingresso.getQuantidadeIngressos();
-				
-				listaDeIngressosPorEvento.add(info);
-				
-			}
-			
-			pstm.close();
-			c.close();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return listaDeIngressosPorEvento;
 	}
 }

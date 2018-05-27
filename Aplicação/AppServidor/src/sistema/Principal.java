@@ -1,69 +1,90 @@
 package sistema;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 import dao.ClienteDAO;
-import dao.IngressoDAO;
+import dao.EventoDAO;
 import modelo.Clientes;
-import modelo.Ingressos;
-import servicosrmi.ServicoListarClientes;
+import modelo.Eventos;
+import servicosrmi.ServicoListarClientesPorEvento;
 
 public class Principal {
 	
 	private static Scanner teclado;
 	private static Scanner opContinuar;
-
+	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, RemoteException {
-		// TODO Auto-generated method stub
 		
-		int opcao = 0;
+		int opcao=0;
+		
 		teclado = new Scanner(System.in);
+		
 		do{
 			System.out.println("Sistema TakePass ----- Compra e Venda de Ingressos");
 			System.out.println();
 			System.out.println("Escolha uma opção:");
 			System.out.println("1 - Incluir um Cliente");
 			System.out.println("2 - Listar Clientes");
-			System.out.println("3 - Cadastrar de Ingressos");
-			System.out.println("4 - Listar Ingressos");
-			/*System.out.println("5 - Inicializar o Servidor");*/
-			System.out.println("6 - Sair da Aplicação");
+			System.out.println("3 - Cadastrar Evento");
+			System.out.println("4 - Listar Ingressos por Evento");
+			System.out.println("5 - Listar Clientes por Evento");
+			System.out.println("6 - Inicializar o Servidor");
+			System.out.println("7 - Sair da Aplicação");
 			System.out.println();
 			System.out.printf("Digite aqui uma opção: ");
+			
 			opcao = teclado.nextInt();
+			
 			switch (opcao) {
 			case 1:
 				incluirCliente();
+				
 				break;
+			
 			case 2:
 				listarClientes();
+				
 				break;
+			
 			case 3:
-				cadastrarIngressos();
+				cadastrarEventos();
+				
 				break;
+			
 			case 4:
 				listarIngressosPorEvento();
+				
 				break;
-			/*case 5:
-				iniciarServidor();
-				break;*/
+				
+			case 5:
+				listarClientesPorEvento();
+				
+				break;
+				
 			case 6:
+				iniciarServidor();
+				System.out.println("Servidor em execução.");
+				break;
+				
+			case 7:
 				System.out.println();
 				System.out.println("Saindo....");
 				System.out.println();
 				System.out.println("Aplicação encerrada com Sucesso.");
+				
 				break;	
+				
 			default:
 				break;
 			}
 			
-			System.out.println("Deseja realizar outra execução? ");
-			
-		}while (opcao != 6);
+		}while (opcao != 6 && opcao != 7);
 
 	}
 
@@ -112,41 +133,81 @@ public class Principal {
 		}
 	}
 	
-	private static void cadastrarIngressos() throws ClassNotFoundException, SQLException {
+	private static void cadastrarEventos() throws ClassNotFoundException, SQLException {
+		String nomeEvento;
+		int qtdIngressos;
+		int codigoCli;
+		
 		System.out.println();
 		
-		teclado = new Scanner(System.in);
+		Scanner evento = new Scanner(System.in);	
+		Scanner qtd = new Scanner(System.in);
+		Scanner codCli = new Scanner(System.in);
 		
-		System.out.println("Quantidade de Ingressos: ");
-		int quantidadeIngressos = teclado.nextInt();
+		System.out.printf("Nome do evento: ");
+		nomeEvento = evento.nextLine();
 		
-		System.out.println("Descrição do Ingresso: ");
-		String descricaoDosIngressos = teclado.next();
-	
-		Ingressos ingressos = new Ingressos();
+		System.out.printf("Quantidade de Ingressos: ");
+		qtdIngressos = qtd.nextInt();
 		
-		IngressoDAO ingressoDAO = new IngressoDAO();
-		ingressoDAO.cadastrarIngresso(quantidadeIngressos, descricaoDosIngressos);
+		System.out.printf("código do Cliente: ");
+		codigoCli = codCli.nextInt();
 		
-		System.out.println("Ingresso cadastrado com sucesso");
+		EventoDAO eDAO = new EventoDAO();
+		eDAO.cadastrarEvento(nomeEvento, qtdIngressos, codigoCli);
+		
+		System.out.println("Ingresso cadastrado com sucesso!!!");
+		
+		System.out.println();
 	}
 	
 	private static void listarIngressosPorEvento() throws ClassNotFoundException, SQLException {
 		System.out.println();
 		
-		ArrayList<String> listaIngressosSaida;
-		IngressoDAO ingressoDAO = new IngressoDAO();
+		ArrayList<String> listaIngressosPorEvento;
+		EventoDAO eventoDAO = new EventoDAO();
 		
-		listaIngressosSaida = ingressoDAO.listarIngressosPorEvento();
+		listaIngressosPorEvento = eventoDAO.listarIngressosPorEvento();
 		int contador=0;
-		while (listaIngressosSaida.size() > contador) {
+		while (listaIngressosPorEvento.size() > contador) {
 			
-			//	System.out.println("Id do Ingresso: " + ingressos.getIdIngresso());
-				System.out.println(listaIngressosSaida.get(contador));
+				System.out.println(listaIngressosPorEvento.get(contador));
 				contador++;
 				System.out.println("******************************");
 				System.out.println();
 		}
 		
+	}
+	
+	private static ArrayList<Eventos> listarClientesPorEvento() throws SQLException, ClassNotFoundException {
+	
+		System.out.println();
+		
+		ArrayList<String> listaClientesPorEvento;
+		EventoDAO eventoDAO = new EventoDAO();
+		
+		listaClientesPorEvento = eventoDAO.listarClientesPorEvento();
+		int contador=0;
+		while (listaClientesPorEvento.size() > contador) {
+			
+				System.out.println(listaClientesPorEvento.get(contador));
+				contador++;
+				System.out.println("******************************");
+				System.out.println();
+		}
+	}
+	
+	private static void iniciarServidor() {
+		try {
+			LocateRegistry.createRegistry(1099);
+			ServicoListarClientesPorEvento slcpe = new ServicoListarClientesPorEvento();
+			Naming.rebind("//localhost/listarclientesporevento", slcpe);
+			System.out.println("Inicializando o Servidor....");
+		
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 }

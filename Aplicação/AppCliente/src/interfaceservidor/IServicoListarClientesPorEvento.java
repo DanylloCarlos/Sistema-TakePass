@@ -2,13 +2,14 @@ package interfaceservidor;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.Clientes;
 
-public interface IServicoClientesPorEvento extends Remote {
+public interface IServicoListarClientesPorEvento extends Remote {
 
-	public ArrayList<Clientes> clientesPorEvento(int codigoDoEvento, String descricaoEvento) throws RemoteException;
+	public ArrayList<Clientes> listarClientesPorEvento() throws RemoteException, SQLException;
 	public String retornaMensagem(String msg) throws RemoteException;
 	
 }

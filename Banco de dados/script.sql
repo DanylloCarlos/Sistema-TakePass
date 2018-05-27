@@ -17,6 +17,21 @@ SHOW WARNINGS;
 USE `bdEventos` ;
 
 -- -----------------------------------------------------
+-- Table `bdEventos`.`Eventos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bdEventos`.`Eventos` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `bdEventos`.`Eventos` (
+  `idEvento` INT NOT NULL AUTO_INCREMENT,
+  `nomeEvento` VARCHAR(45) NULL,
+  `qtdIngressos` INT NOT NULL,
+  PRIMARY KEY (`idEvento`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
 -- Table `bdEventos`.`Clientes`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bdEventos`.`Clientes` ;
@@ -26,55 +41,17 @@ CREATE TABLE IF NOT EXISTS `bdEventos`.`Clientes` (
   `idCliente` INT NOT NULL AUTO_INCREMENT,
   `nomeCliente` VARCHAR(50) NULL,
   `cpf` VARCHAR(45) NULL,
-  PRIMARY KEY (`idCliente`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `bdEventos`.`Ingressos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bdEventos`.`Ingressos` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `bdEventos`.`Ingressos` (
-  `idIngresso` INT NOT NULL AUTO_INCREMENT,
-  `qtdDisp` INT NULL,
-  `descricao` VARCHAR(100) NULL,
-  PRIMARY KEY (`idIngresso`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `bdEventos`.`Eventos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bdEventos`.`Eventos` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `bdEventos`.`Eventos` (
-  `idEvento` INT NOT NULL AUTO_INCREMENT,
-  `nomeEvento` VARCHAR(45) NULL,
-  `Clientes_idCliente` INT NOT NULL,
-  `Ingressos_idIngresso` INT NOT NULL,
-  PRIMARY KEY (`idEvento`),
-  CONSTRAINT `fk_Evento_Clientes`
-    FOREIGN KEY (`Clientes_idCliente`)
-    REFERENCES `bdEventos`.`Clientes` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Evento_Ingressos1`
-    FOREIGN KEY (`Ingressos_idIngresso`)
-    REFERENCES `bdEventos`.`Ingressos` (`idIngresso`)
+  `Eventos_idEvento` INT NOT NULL,
+  PRIMARY KEY (`idCliente`),
+  CONSTRAINT `fk_Clientes_Eventos`
+    FOREIGN KEY (`Eventos_idEvento`)
+    REFERENCES `bdEventos`.`Eventos` (`idEvento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Evento_Clientes_idx` ON `bdEventos`.`Eventos` (`Clientes_idCliente` ASC);
-
-SHOW WARNINGS;
-CREATE INDEX `fk_Evento_Ingressos1_idx` ON `bdEventos`.`Eventos` (`Ingressos_idIngresso` ASC);
+CREATE INDEX `fk_Clientes_Eventos_idx` ON `bdEventos`.`Clientes` (`Eventos_idEvento` ASC);
 
 SHOW WARNINGS;
 

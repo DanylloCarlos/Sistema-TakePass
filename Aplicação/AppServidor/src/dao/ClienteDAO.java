@@ -61,6 +61,9 @@ public class ClienteDAO {
 		pstm.setString(1, cpf);
 		rs = pstm.getResultSet();
 		
+		pstm.close();
+		c.close();
+		
 		while(rs.next()) {
 			cli.setIdCliente(rs.getInt("idCliente"));
 			cli.setNomeCliente(rs.getString("nomeCliente"));
@@ -96,8 +99,4 @@ public class ClienteDAO {
 		return listaDeClientes;
 		
 	}
-
-	
-	
-	
 }

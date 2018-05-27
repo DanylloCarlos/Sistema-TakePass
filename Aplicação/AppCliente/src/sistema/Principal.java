@@ -4,30 +4,35 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import interfaceservidor.IServicoClientesPorEvento;
-import modelo.Clientes;
+import interfaceservidor.IServicoListarClientesPorEvento;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ArrayList<String> clientesPorEvento;
 		String urlservico = "";
 		
-		urlservico = "//localhost/listareventos";
+		urlservico = "//localhost/listarclientesporevento";
 		
 		try {
-			IServicoClientesPorEvento cpe = (IServicoClientesPorEvento)Naming.lookup(urlservico);
-			String msg = cpe.retornaMensagem("Iniciando Serviï¿½o");
-			System.out.println(msg);
-			ArrayList<Clientes> clientesPorEvento = cpe.clientesPorEvento(11, "Evento beneficente");
-			for (Clientes cliente : clientesPorEvento) {
-				System.out.println("Nome:" + cliente.getNomeCliente());
-				System.out.println("CPF:" + cliente.getCpf());
-				System.out.println("************************");
+			IServicoListarClientesPorEvento slcpe = 
+					(IServicoListarClientesPorEvento)Naming.lookup(urlservico);
+			String msg = slcpe.retornaMensagem("Serviço iniciado!");
+			
+			clientesPorEvento = slcpe.listarClientesPorEvento();
+			
+			int contador=0;
+			
+			while(contador < clientesPorEvento.size()) {
+				System.out.println(clientesPorEvento.get(contador));
+				System.out.println("****************************************************");
+				System.out.println();
 			}
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+		
+		} catch (MalformedURLException | RemoteException | NotBoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
