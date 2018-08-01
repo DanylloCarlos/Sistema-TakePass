@@ -18,9 +18,13 @@ public class ClienteDAO {
 	private ArrayList<Ingressos> ingressos;
 	ArrayList<Clientes> listaDeClientes;
 	
-	public ClienteDAO() throws ClassNotFoundException, SQLException {
+	public ClienteDAO(){
+		try {
+			c = ConexaoBD.novaConexao();
 		
-		c = ConexaoBD.novaConexao();
+		}catch(SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	public void cadastrarCliente(String nome, String cpf, int idEvento){
@@ -45,36 +49,46 @@ public class ClienteDAO {
 			
 	}
 	
-	public void removerCliente(Clientes cli) throws SQLException{
+	public void removerCliente(Clientes cli){
 	
 		String sql = "Delete from Clientes c where c.idCliente = ?";
 		
-		pstm = c.prepareStatement(sql);
-		pstm.setInt(1, cli.getIdCliente());
-		pstm.executeQuery();
-		
-		pstm.close();
-		c.close();
+		try {
+			pstm = c.prepareStatement(sql);
+			pstm.setInt(1, cli.getIdCliente());
+			pstm.executeQuery();
+			
+			pstm.close();
+			c.close();
+			
+		}catch(SQLException sqe) {
+			sqe.printStackTrace();
+		}
 		
 	}
 	
-	public Clientes buscarCliente(String cpf) throws SQLException{
+	public Clientes buscarCliente(String cpf){
 		Clientes cli = new Clientes();
 		
 		String sql = "Select * from Clientes c where c.cpf= ?";
 		
-		pstm = c.prepareStatement(sql);
-		pstm.setString(1, cpf);
-		rs = pstm.getResultSet();
-		
-		pstm.close();
-		c.close();
-		
-		while(rs.next()) {
-			cli.setIdCliente(rs.getInt("idCliente"));
-			cli.setNomeCliente(rs.getString("nomeCliente"));
-			cli.setCpf(rs.getString("cpf"));
+		try {
+			pstm = c.prepareStatement(sql);
+			pstm.setString(1, cpf);
+			rs = pstm.getResultSet();
 			
+			pstm.close();
+			c.close();
+			
+			while(rs.next()) {
+				cli.setIdCliente(rs.getInt("idCliente"));
+				cli.setNomeCliente(rs.getString("nomeCliente"));
+				cli.setCpf(rs.getString("cpf"));
+				
+			}
+			
+		}catch(SQLException sqe) {
+			sqe.printStackTrace();
 		}
 		
 		return cli;
