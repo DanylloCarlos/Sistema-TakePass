@@ -38,7 +38,6 @@ implements IServicoListarClientesPorEvento {
 		
 		ArrayList<Clientes> listaClientesPorEvento;
 		
-		try {
 		EventoDAO eventoDAO = new EventoDAO();
 		
 		listaClientesPorEvento = eventoDAO.listarClientesPorEvento(codigoDoEvento);
@@ -59,15 +58,9 @@ implements IServicoListarClientesPorEvento {
 				System.out.println("******************************\n\n");
 		
 			}
+			
 		}
 		
 		return listaClientesPorEvento;
-	
-		}catch(SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-		
 	}	
 }
