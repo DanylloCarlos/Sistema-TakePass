@@ -26,13 +26,13 @@ implements IServicoListarClientesPorEvento {
 	@Override
 	public String retornaMensagem(String msg) throws RemoteException {
 		// TODO Auto-generated method stub
-		msg = "Olá " + msg + ", o servidor está funcionando";
+		msg = "Ola " + msg + ", o servidor esta funcionando";
 		return  msg;
 	}
 
 
 	@Override
-	public ArrayList<Clientes> listarClientesPorEvento(int codigoDeAcesso)  throws RemoteException, SQLException {
+	public ArrayList<Clientes> listarClientesPorEvento(int codigoDoEvento){
 	
 		System.out.println();
 		
@@ -41,7 +41,7 @@ implements IServicoListarClientesPorEvento {
 		try {
 		EventoDAO eventoDAO = new EventoDAO();
 		
-		listaClientesPorEvento = eventoDAO.listarClientesPorEvento(codigoDeAcesso);
+		listaClientesPorEvento = eventoDAO.listarClientesPorEvento(codigoDoEvento);
 		
 		if(listaClientesPorEvento == null || listaClientesPorEvento.isEmpty()) {
 			System.out.println("Nenhum dado cadastrado no banco ou falha no acesso aos dados");
