@@ -24,7 +24,7 @@ implements IServicoListarClientesPorEvento {
 
 
 	@Override
-	public String retornaMensagem(String msg) throws RemoteException {
+	public String retornaMensagem(String msg){
 		// TODO Auto-generated method stub
 		msg = "Ola " + msg + ", o servidor esta funcionando";
 		return  msg;
