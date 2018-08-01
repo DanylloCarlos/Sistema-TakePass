@@ -19,7 +19,7 @@ public class Principal {
 	private static Scanner teclado;
 	private static Scanner opContinuar;
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, RemoteException {
+	public static void main(String[] args){
 		
 		int opcao=0;
 		
@@ -40,49 +40,57 @@ public class Principal {
 			
 			opcao = teclado.nextInt();
 			
-			switch (opcao) {
-			case 1:
-				cadastrarCliente();
-				
-				break;
+			try {
 			
-			case 2:
-				cadastrarEventos();
+				switch (opcao) {
+				case 1:
+					cadastrarCliente();
+					
+					break;
 				
-				break;
-			
-			case 3:
-				listarClientes();
+				case 2:
+					cadastrarEventos();
+					
+					break;
 				
-				break;
+				case 3:
+					listarClientes();
+					
+					break;
+					
+				case 4:
+					listarClientesPorEvento();
+					
+					break;
+					
+				case 5:
+					iniciarServidor();
+					System.out.println("Servidor em execucao.");
+					break;
+					
+				case 6:
+					System.out.println();
+					System.out.println("Saindo....");
+					System.out.println();
+					System.out.println("Aplicacao encerrada com Sucesso.");
+					
+					break;	
+					
+				default:
+					break;
 				
-			case 4:
-				listarClientesPorEvento();
+				}
 				
-				break;
-				
-			case 5:
-				iniciarServidor();
-				System.out.println("Servidor em execucao.");
-				break;
-				
-			case 6:
-				System.out.println();
-				System.out.println("Saindo....");
-				System.out.println();
-				System.out.println("Aplicacao encerrada com Sucesso.");
-				
-				break;	
-				
-			default:
-				break;
+			}catch(SQLException | ClassNotFoundException ex) {
+				ex.printStackTrace();
 			}
+				
 			
 		}while (opcao != 5 && opcao != 6);
 
 	}
 
-	private static void cadastrarCliente() throws ClassNotFoundException, SQLException{
+	private static void cadastrarCliente() {
 		System.out.println();
 		
 		Scanner nomCli = new Scanner(System.in);
