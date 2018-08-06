@@ -96,6 +96,16 @@ public class Principal {
 		Scanner nomCli = new Scanner(System.in);
 		Scanner scCpf = new Scanner(System.in);
 		Scanner idEvt = new Scanner(System.in);
+		Scanner opt = new Scanner(System.in);
+		String opcao;
+		
+		System.out.println("OBS.: É necessário que o evento esteja"
+				+ " cadastrado antes de cadastrar um cliente.");
+		System.out.println("");
+		System.out.println("O evento já foi cadastrado? (s/n)");
+		opcao = opt.nextLine();
+		
+		if(opcao.equalsIgnoreCase("s")) {
 		
 		System.out.printf("Nome do Cliente: ");
 		String nomeCliente = nomCli.nextLine();
@@ -103,7 +113,7 @@ public class Principal {
 		System.out.printf("Cpf do cliente: ");
 		String cpf = scCpf.nextLine();
 		
-		System.out.printf("id do Evento: ");
+		System.out.printf("codigo do Evento: ");
 		int idEvento = idEvt.nextInt();
 		
 		
@@ -116,6 +126,12 @@ public class Principal {
 		System.out.println("Cliente salvo com sucesso!");
 		
 		System.out.println();
+		
+		}else {
+			System.out.println("Por favor, Escolha a opção 2 e cadastre um evento.");
+			System.out.println();
+		}
+		
 	}
 	
 	private static void listarClientes() throws ClassNotFoundException, SQLException {
