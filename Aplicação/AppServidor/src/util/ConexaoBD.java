@@ -11,7 +11,7 @@ public class ConexaoBD {
 	private static String driver;
 	
 	public static Connection novaConexao() throws ClassNotFoundException, SQLException {
-		url = "jdbc:mysql://localhost/bdeventos";
+		url = "jdbc:mysql://localhost/bdEventos";
 		driver = "com.mysql.jdbc.Driver";
 		c = null;
 		

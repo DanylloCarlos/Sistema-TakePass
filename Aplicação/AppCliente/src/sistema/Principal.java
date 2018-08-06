@@ -25,10 +25,12 @@ public class Principal {
 		try {
 			IServicoListarClientesPorEvento slcpe = 
 					(IServicoListarClientesPorEvento)Naming.lookup(urlservico);
-			String msg = slcpe.retornaMensagem("Serviço iniciado!");
+			slcpe.retornaMensagem("Servico iniciado!");
 			
 			System.out.printf("Por favor, digite um codigo de acesso: ");
 			codigoDeAcesso = sc.nextInt();
+			
+			sc.close();
 			
 			clientesPorEvento = slcpe.listarClientesPorEvento(codigoDeAcesso);
 			
@@ -56,6 +58,7 @@ public class Principal {
 			}
 			
 			System.out.println("Fim da execucao.");
+			
 		} catch (MalformedURLException | RemoteException | NotBoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

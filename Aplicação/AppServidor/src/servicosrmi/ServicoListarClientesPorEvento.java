@@ -2,15 +2,11 @@ package servicosrmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import dao.ClienteDAO;
 import dao.EventoDAO;
 import interfaceservidor.IServicoListarClientesPorEvento;
 import modelo.Clientes;
-import modelo.Eventos;
 
 public class ServicoListarClientesPorEvento extends UnicastRemoteObject 
 implements IServicoListarClientesPorEvento {
